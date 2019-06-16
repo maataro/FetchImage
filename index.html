@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Coding Train: Data/APIs 1</title>
+</head>
+<body>
+  <h1>Fetch Cats</h1>
+  <script>
+   
+  const pics = [
+    //'https://i.imgur.com/pqggrK0.jpg',
+    //'https://i.imgur.com/dIVeqhl.jpg',
+    //'https://i.imgur.com/Jvh1OQm.jpg',
+    'images/neko1.jpg',
+    'images/neko2.jpg'
+    ];
+
+  const poem = 'poem.txt';
+    
+    console.log('about to fetch a cats');
+
+    catchCats(pics)
+      .then(response => {
+        console.log('yay');
+      })
+      .catch(error => {
+        console.log('error!');
+        console.error(error);
+      });
+
+    catchPoems(poem)
+      .then(response => {
+        console.log('yayyay');
+      })
+      .catch(error => {
+        console.log('error!!');
+        console.error(error);
+      });
+    
+    async function catchCats(pics) {
+      for (let pic of pics) {
+        const response = await fetch(pic);
+        const blob = await response.blob();
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(blob);
+        //img.width = '200';
+        img.height = '300';
+        document.body.append(img);
+      } 
+    }
+
+    async function catchPoems(poem) {
+      
+      const p = document.createElement('p');
+      const response = await fetch(poem); 
+      p.innerText = await response.text();
+      document.body.append(p);
+    }
+    
+    // fetch('https://i.imgur.com/dIVeqhl.jpg')
+    //   .then(response => {
+    //     console.log(response);
+    //     return response.blob();        
+    //   })
+    //   .then(blob => {
+    //     console.log(blob);
+    //     document.getElementById('rainbow').src = URL.createObjectURL(blob);
+    //   })
+    //   .catch;(error => {
+    //     console.log('error!');
+    //     console.lerror(error);
+    //   });
+
+  </script>
+  
+</body>
+</html>
